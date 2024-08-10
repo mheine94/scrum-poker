@@ -1,0 +1,35 @@
+@(teamName : String, playerName: String, players: List[String], choices: List[String])
+
+@main(teamName){
+    <h1>Poker for team @teamName</h1>
+    <script>
+
+        function castVote(player, choice){
+            console.log(`${player} voted for ${choice}`)
+        }
+    </script>
+    <div style="display: flex">
+        @for(player <- players){
+            <div style="display: flex; flex-direction: column; align-items: center; margin: 40px">
+                <img width="100" height="100" src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"></i>
+                <span>@player</span>
+                <span>...thinking</span>
+            </div>
+
+        }
+    </div>
+
+    <div style="display: flex">
+        @for(choice <- choices){
+            <div onclick="" style="margin: 20px;
+                border-radius: 2px;
+                border: outset gray;
+                padding: 10px">
+                <input type="submit" onclick='castVote("@playerName", "@choice")' value="@choice">
+            </div>
+        }
+    </div>
+
+    <button type="button" value="star new round">Start new round</button>
+
+}

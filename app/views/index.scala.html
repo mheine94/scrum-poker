@@ -1,0 +1,15 @@
+@import model.CreateTeamDto
+
+@(createTeamForm: Form[CreateTeamDto])(implicit messages: Messages)
+
+@main("Scrum Poker") {
+  <h1>Welcome to Scrum Poker</h1>
+
+  <h2>Create new Team</h2>
+
+  @helper.form(action = routes.HomeController.create()) {
+    @helper.inputText(createTeamForm("team-name"))
+    <input type="submit" value="create">
+  }
+
+}

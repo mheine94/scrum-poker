@@ -1,4 +1,6 @@
-@(teamName : String, playerName: String, players: List[String], choices: List[String])
+@import model.Player
+@import model.PlayerStates.THINKING
+@(teamName : String, playerName: String, players: List[Player], choices: List[String], revealed: Boolean)
 
 @main(teamName){
     <h1>Poker for team @teamName</h1>
@@ -6,16 +8,36 @@
 
         function castVote(player, choice){
             console.log(`${player} voted for ${choice}`)
+            fetch("/team/@teamName/vote", {
+                method : "POST",
+                headers: new Headers({'content-type': 'application/json'}),
+                body: JSON.stringify({
+                    player,
+                    choice
+                })
+            })
+        }
+
+        function newRound(){
+            console.log(`Started new round`)
+            fetch("/team/@teamName/newround")
         }
     </script>
     <div style="display: flex">
         @for(player <- players){
             <div style="display: flex; flex-direction: column; align-items: center; margin: 40px">
                 <img width="100" height="100" src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"></i>
-                <span>@player</span>
-                <span>...thinking</span>
+                <span>@player.name</span>
+                @if(player.state == THINKING){
+                    <span>thinking ...</span>
+                } else {
+                    @if(revealed){
+                        <span>@player.choice</span>
+                    }else{
+                        <span>decided</span>
+                    }
+                }
             </div>
-
         }
     </div>
 
@@ -30,6 +52,6 @@
         }
     </div>
 
-    <button type="button" value="star new round">Start new round</button>
+    <button type="button" value="star new round" onclick='newRound()'>Start new round</button>
 
 }

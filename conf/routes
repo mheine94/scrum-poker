@@ -14,4 +14,8 @@ POST     /create                    controllers.HomeController.create()
 
 GET     /team/:teamName             controllers.TeamController.poker(teamName : String)
 
+POST    /team/:teamName/vote       controllers.TeamController.vote(teamName : String)
+
 POST    /team/:teamName/join             controllers.TeamController.joinTeam(teamName: String)
+
+GET    /team/:teamName/newround       controllers.TeamController.newRound(teamName : String)

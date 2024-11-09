@@ -11,6 +11,9 @@ import javax.inject.{Inject, Singleton}
 
 @Singleton
 class TeamController @Inject()(val controllerComponents: ControllerComponents, val messageApi: MessagesApi, val teamsService: TeamsService) extends BaseController {
+
+  val CHOICES = List("0.25", "0.5", "1", "2")
+
   val PLAYER_NAME_COOKIE_NAME = "playerName";
 
   val JOIN_TEAM_FORM = Form(
@@ -31,8 +34,8 @@ class TeamController @Inject()(val controllerComponents: ControllerComponents, v
 
       playerNameOpt match {
         case Some(playerName) =>{
-          if(team.players.contains(playerName)){
-            Ok(views.html.poker(team.teamName, playerName, team.players, List("0.25", "0.5", "1", "2")))
+          if(teamsService.isTeamMember(teamName, playerName)){
+            Ok(views.html.poker(team.teamName, playerName, team.players, CHOICES, teamsService.everyOneVoted(teamName)))
           }else{
             Ok(views.html.choosename(teamName, JOIN_TEAM_FORM)(messageApi.preferred(request))).discardingCookies(DiscardingCookie(PLAYER_NAME_COOKIE_NAME))
           }
@@ -43,13 +46,24 @@ class TeamController @Inject()(val controllerComponents: ControllerComponents, v
     }
   }
 
+  def newRound(teamName: String) = Action {
+    val searchResult = teamsService.findByName(teamName)
+    if (searchResult.isEmpty) {
+      NotFound
+    }else{
+      val team = searchResult.get
+      teamsService.startNewRound(team.teamName)
+      Ok
+    }
+  }
+
 
   def vote(teamName: String): Action[JsValue] = Action(parse.json) { implicit request  =>
-    // TODO
     request.body.validate[Vote].fold(
       errors => BadRequest(Json.obj("status" -> "error", "message" -> JsError.toJson(errors))),
       vote => {
         println(s"team $teamName: vote cast by ${vote.player} for choice ${vote.choice}");
+        teamsService.vote(teamName, vote);
         Ok
       }
     )

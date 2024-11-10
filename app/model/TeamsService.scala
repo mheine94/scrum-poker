@@ -37,6 +37,16 @@ class TeamsService {
     Option(team)
   }
 
+  def removeFromTeam(teamName: String, playerName: String): Option[Team] = {
+    val searchResult = teams.find(team => team.teamName.equals(teamName))
+    if(searchResult.isEmpty){
+      return Option.empty
+    }
+    val team = searchResult.get;
+    team.players = team.players.filterNot(player => player.name == playerName)
+    Option(team)
+  }
+
   def vote(teamName: String, vote: Vote) = {
      val teamOpt = findByName(teamName)
     teamOpt match {

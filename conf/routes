@@ -20,3 +20,4 @@ POST    /team/:teamName/join             controllers.TeamController.joinTeam(tea
 
 GET    /team/:teamName/players       controllers.TeamController.getPlayers(teamName : String)
 GET    /team/:teamName/newround       controllers.TeamController.newRound(teamName : String)
+DELETE    /team/:teamName/players/:playerName       controllers.TeamController.removeFromTeam(teamName : String, playerName)

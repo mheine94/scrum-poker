@@ -30,8 +30,25 @@
                 document.dispatchEvent(new Event("player-reload"));
             });
         }
+
+        function removePlayer(playerName) {
+            console.log(`Removing player ${playerName}`)
+            fetch(`/team/@teamName/players/${playerName}`, {
+                method: "DELETE"
+            })
+            .then(() => {
+                // Dispatch a custom event to trigger player list reload
+                document.dispatchEvent(new Event("player-reload"));
+            });
+        }
+
+        function youHaveBeenKicked(){
+            console.log(`You have been kicked`)
+            window.location = "/team/@teamName"
+        }
+
     </script>
-    <div style="display: flex" hx-get="/team/@teamName/players" hx-trigger="every 5s, player-reload from:document" hx-swap="innerHTML">
+    <div style="display: flex" hx-get="/team/@teamName/players" hx-trigger="load, every 2s, player-reload from:document" hx-swap="innerHTML">
         Loading...
     </div>
 

@@ -1,0 +1,20 @@
+@import model.Player
+@import model.PlayerStates.THINKING
+@(playerDtos: List[Player], revealed: Boolean)
+
+@for(player <- playerDtos){
+    <div style="display: flex; flex-direction: column; align-items: center; margin: 40px">
+        <img width="100" height="100" src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"></i>
+        <span>@player.name</span>
+        @if(player.state == THINKING){
+            <span>thinking ...</span>
+        } else {
+            @if(revealed){
+                <span>@player.choice</span>
+            }else{
+                <span>decided</span>
+            }
+        }
+    </div>
+}
+

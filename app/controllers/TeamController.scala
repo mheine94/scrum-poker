@@ -22,6 +22,17 @@ class TeamController @Inject()(val controllerComponents: ControllerComponents, v
     )(JoinTeamDto.apply)(JoinTeamDto.unapply)
   )
 
+
+  def getPlayers(teamName: String) =  Action {
+    val searchResult = teamsService.findByName(teamName)
+    if (searchResult.isEmpty) {
+      NotFound
+    }else {
+      val team = searchResult.get
+      Ok(views.html.players(team.players, teamsService.everyOneVoted(team.teamName)))
+    }
+  }
+
   def poker(teamName: String) = Action { implicit request =>
 
     val searchResult = teamsService.findByName(teamName)

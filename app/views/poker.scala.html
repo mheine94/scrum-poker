@@ -52,17 +52,14 @@
         Loading...
     </div>
 
-    <div style="display: flex">
+    <div class="bottom-row">
         @for(choice <- choices){
-            <div onclick="" style="margin: 20px;
-                border-radius: 2px;
-                border: outset gray;
-                padding: 10px">
-                <input type="submit" onclick='castVote("@playerName", "@choice")' value="@choice">
-            </div>
+            <div style="cursor: pointer" class="item item_@choice" onclick='castVote("@playerName", "@choice")'>@choice</div>
         }
     </div>
 
-    <button type="button" value="star new round" onclick='newRound()'>Start new round</button>
+    <button type="button" class="start-round-btn" onclick="newRound()">
+        <span class="icon">🔄</span>
+    </button>
 
 }

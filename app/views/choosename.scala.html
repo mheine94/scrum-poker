@@ -5,8 +5,10 @@
     <h1>Join team @teamName</h1>
 
     @helper.form(action = routes.TeamController.joinTeam(teamName)) {
-        @helper.inputText(createTeamForm("player-name"))
-        <input type="submit" value="create">
+        <div class="form-group">
+            @helper.inputText(createTeamForm("player-name"), Symbol("id") -> "Player name")
+        </div>
+        <input type="submit" value="Join the Game">
     }
 
 }

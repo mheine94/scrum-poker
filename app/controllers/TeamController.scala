@@ -12,7 +12,7 @@ import javax.inject.{Inject, Singleton}
 @Singleton
 class TeamController @Inject()(val controllerComponents: ControllerComponents, val messageApi: MessagesApi, val teamsService: TeamsService) extends BaseController {
 
-  val CHOICES = List("0.25", "0.5", "1", "2")
+  val CHOICES = List("0","¼" ,"½", "¾", "1", "2", "3", "5", "8", "13", "∞", "☕")
 
   val PLAYER_NAME_COOKIE_NAME = "playerName";
 

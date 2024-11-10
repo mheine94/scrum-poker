@@ -13,7 +13,172 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        /* Centered card at the top */
+        .card {
+            position: relative;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #333;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            width: 120px;
+        }
+        .card .icon {
+            font-size: 40px;
+            color: #ffa500;
+        }
+        .card .text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        /* Close (X) icon in top-right corner */
+        .close-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            color: #ff5555;
+            cursor: pointer;
+        }
+        .close-icon:hover {
+            color: #ff3333;
+        }
+        /* Bottom row of icons/numbers */
+        .bottom-row {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 8px;
+        }
+        .bottom-row .item {
+            font-size: 32px;
+            font-weight: bold;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        /* Specific colors for each item */
+        .item_0 { color: #3399ff; }
+        .item_¼ { color: #ff66cc; }
+        .item_½ { color: #00cc66; }
+        .item_¾ { color: #ff9933; }
+        .item_1 { color: #cc33ff; }
+        .item_2 { color: #ffcc00; }
+        .item_3 { color: #33cc33; }
+        .item_5 { color: #99cc00; }
+        .item_8 { color: #00cc99; }
+        .item_13 { color: #6699ff; }
+        .item_∞ { color: #ff3300; }
+        .item_☕ { color: #ff6600; }
+        .item_13 { color: #a52a2a; }
 
+        /* Title Styling */
+        h1 {
+            font-size: 3em;
+            color: #00FF66; /* Poker green glow */
+            text-shadow: 0 0 10px #00FF66, 0 0 20px #00FF66, 0 0 30px #00FF66;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        /* Form Container Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #222;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+        }
+        /* Label Styling */
+        label {
+            font-size: 1em;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+        /* Input Field Styling */
+        input[type="text"] {
+            width: 250px;
+            padding: 10px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 5px rgba(0, 255, 102, 0.5);
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00FF66;
+            box-shadow: 0 0 10px #00FF66;
+        }
+        /* Submit Button Styling */
+        input[type="submit"] {
+            font-size: 1em;
+            color: #000;
+            background-color: #00FF66;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0 0 5px #00FF66, 0 0 15px #00FF66;
+        }
+        input[type="submit"]:hover {
+            background-color: #fff;
+            color: #00FF66;
+            box-shadow: 0 0 15px #00FF66, 0 0 30px #00FF66;
+        }
+        /* Additional Styling */
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .start-round-btn {
+            position: fixed; /* Fixes the position relative to the viewport */
+            top: 20px; /* Adjust this value to change the vertical distance */
+            right: 20px; /* Adjust this value to change the horizontal distance */
+            background-color: transparent; /* No background color */
+            border: none; /* No border */
+            padding: 0; /* No padding */
+            cursor: pointer; /* Optional: Change cursor on hover */
+            font-size: 24px; /* Adjust icon size */
+            color: #00FF66; /* Icon color */
+        }
+
+        .start-round-btn .icon {
+            font-size: 1.4em; /* Adjust the icon size */
+            margin: 0; /* Remove margin */
+        }
+
+        .start-round-btn:hover {
+            color: #00FF66; /* Optional: Keep or change the icon color on hover */
+            box-shadow: none; /* Remove box shadow */
+        }
+    </style>
     </head>
     <body>
         @* And here's where we render the `Html` object containing

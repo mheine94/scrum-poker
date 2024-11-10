@@ -1,5 +1,6 @@
 @import model.Player
 @import model.PlayerStates.THINKING
+@import model.PlayerStates.DECIDED
 @(playerDtos: List[Player], revealed: Boolean)
 
 @if(playerDtos.isEmpty){
@@ -9,24 +10,22 @@
 }
 
 @for(player <- playerDtos){
-    <div style="display: flex; flex-direction: column; align-items: center; margin: 40px">
-        <img width="100" height="100" src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"></i>
-        <span>@player.name</span>
+    <div class="card">
+
+        <div class="close-icon" onclick="removePlayer('@player.name')">×</div> <!-- Close icon with onclick event -->
         @if(player.state == THINKING){
-            <span>thinking ...</span>
+            <span>💭</span>
+            <div class="icon">🤔</div>
         } else {
             @if(revealed){
-                <span>@player.choice</span>
+                <div class="icon item item_@player.choice">@player.choice</div>
             }else{
-                <span>decided</span>
+                <div class="icon">💡</div>
             }
         }
-
-        <!-- Trash icon for removing the player -->
-        <span style="cursor: pointer" onclick="removePlayer('@player.name')">
-        🗑️
-        </span>
+        <div class="text">@player.name</div>
 
     </div>
+
 }
 
